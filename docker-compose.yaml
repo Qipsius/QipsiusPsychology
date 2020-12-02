@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+    api:
+        image: ${DOCKER_ENV}_api
+        container_name: api
+        build:
+            context: QipsiusPsychologyAPI
+            dockerfile: build/Dockerfile
+            args:
+                CONTAINER: api
+                DOCKER_ENV: ${DOCKER_ENV}
+        volumes:
+            - ./QipsiusPsychologyAPI/:/var/www/html/api
+        networks:
+            network_1:
+                ipv4_address: 172.28.1.1
+        restart: always
+
+#    admin:
+#        image: ${DOCKER_ENV}_admin
+#        container_name: admin
+#        build:
+#            context: QipsiusPsychologyAdmin
+#            dockerfile: build/Dockerfile
+#            args:
+#                CONTAINER: admin
+#                DOCKER_ENV: ${DOCKER_ENV}
+#        volumes:
+#            - ./QipsiusPsychologyAdmin:/var/www/html/admin
+#        networks:
+#            network_1:
+#                ipv4_address: 172.28.1.50
+#        restart: always
+
+    nginx:
+        image: ${DOCKER_ENV}_nginx
+        container_name: nginx
+        build:
+            context: ./
+            dockerfile: dockerfiles/nginx/${DOCKER_ENV}/Dockerfile
+            args:
+                DOCKER_ENV: ${DOCKER_ENV}
+                SERVER_DOMAIN: ${SERVER_DOMAIN}
+                SERVER_PORT: ${SERVER_PORT}
+        networks:
+            network_1:
+                ipv4_address: 172.28.1.100
+        ports:
+            - "80:80"
+            - "443:443"
+        restart: always
+
+networks:
+    network_1:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
+    monitoring:
+        driver: bridge
