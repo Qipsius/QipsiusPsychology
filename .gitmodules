@@ -1,6 +1,6 @@
 [submodule "QipsiusPsychologyAPI"]
 	path = QipsiusPsychologyAPI
-	url = /Users/david/Projects/Qipsius/QipsiusPsychology/QipsiusPsychologyAPI
+	url = https://github.com/Qipsius/QipsiusPsychologyApi.git
 [submodule "QipsiusPsychologyAdmin"]
 	path = QipsiusPsychologyAdmin
-	url = /Users/david/Projects/Qipsius/QipsiusPsychology/QipsiusPsychologyAdmin
+	url = https://github.com/Qipsius/QipsiusPsychologyAdmin.git
