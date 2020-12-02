@@ -1,0 +1,6 @@
+[submodule "QipsiusPsychologyAPI"]
+	path = QipsiusPsychologyAPI
+	url = /Users/david/Projects/Qipsius/QipsiusPsychology/QipsiusPsychologyAPI
+[submodule "QipsiusPsychologyAdmin"]
+	path = QipsiusPsychologyAdmin
+	url = /Users/david/Projects/Qipsius/QipsiusPsychology/QipsiusPsychologyAdmin
