@@ -4,3 +4,6 @@
 [submodule "QipsiusPsychologyAdmin"]
 	path = QipsiusPsychologyAdmin
 	url = https://github.com/Qipsius/QipsiusPsychologyAdmin.git
+[submodule "QipsiusPsychologyDB"]
+	path = QipsiusPsychologyDB
+	url = https://github.com/Qipsius/QipsiusPsychologyDB.git

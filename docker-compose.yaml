@@ -1,6 +1,31 @@
 version: "3.7"
 
 services:
+    db:
+        image: ${DOCKER_ENV}_db
+        container_name: db
+        build:
+            context: QipsiusPsychologyDB
+            dockerfile: build/Dockerfile
+            args:
+                DOCKER_ENV: ${DOCKER_ENV}
+                POSTGRES_USER_READER: ${POSTGRES_USER_READER}
+                POSTGRES_PASSWORD_READER: ${POSTGRES_PASSWORD_READER}
+                POSTGRES_USER_WRITER: ${POSTGRES_USER_WRITER}
+                POSTGRES_PASSWORD_WRITER: ${POSTGRES_PASSWORD_WRITER}
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER_ADMIN}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_ADMIN}
+            POSTGRES_DB: qpsychology
+        volumes:
+            - ./QipsiusPsychologyDB/data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            network_1:
+                ipv4_address: 172.28.1.1
+        restart: always
+
     api:
         image: ${DOCKER_ENV}_api
         container_name: api
@@ -14,24 +39,24 @@ services:
             - ./QipsiusPsychologyAPI/:/var/www/html/api
         networks:
             network_1:
-                ipv4_address: 172.28.1.1
+                ipv4_address: 172.28.1.10
         restart: always
 
-#    admin:
-#        image: ${DOCKER_ENV}_admin
-#        container_name: admin
-#        build:
-#            context: QipsiusPsychologyAdmin
-#            dockerfile: build/Dockerfile
-#            args:
-#                CONTAINER: admin
-#                DOCKER_ENV: ${DOCKER_ENV}
-#        volumes:
-#            - ./QipsiusPsychologyAdmin:/var/www/html/admin
-#        networks:
-#            network_1:
-#                ipv4_address: 172.28.1.50
-#        restart: always
+    admin:
+        image: ${DOCKER_ENV}_admin
+        container_name: admin
+        build:
+            context: QipsiusPsychologyAdmin
+            dockerfile: build/Dockerfile
+            args:
+                CONTAINER: admin
+                DOCKER_ENV: ${DOCKER_ENV}
+        volumes:
+            - ./QipsiusPsychologyAdmin:/var/www/html/admin
+        networks:
+            network_1:
+                ipv4_address: 172.28.1.20
+        restart: always
 
     nginx:
         image: ${DOCKER_ENV}_nginx
@@ -46,6 +71,8 @@ services:
         networks:
             network_1:
                 ipv4_address: 172.28.1.100
+        links:
+            - db
         ports:
             - "80:80"
             - "443:443"

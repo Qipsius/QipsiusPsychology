@@ -20,8 +20,8 @@ COPY dockerfiles/nginx/${DOCKER_ENV}/config/admin_${DOCKER_ENV}.conf /etc/nginx/
 RUN sed -i "s|{{SERVER_DOMAIN}}|${SERVER_DOMAIN}|g" /etc/nginx/sites-available/admin_${DOCKER_ENV}.conf
 RUN sed -i "s|{{SERVER_PORT}}|${SERVER_PORT}|g" /etc/nginx/sites-available/admin_${DOCKER_ENV}.conf
 COPY dockerfiles/nginx/${DOCKER_ENV}/config/api_${DOCKER_ENV}.conf /etc/nginx/sites-available/
-RUN   sed -i "s|{{SERVER_DOMAIN}}|${SERVER_DOMAIN}|g" /etc/nginx/sites-available/api_${DOCKER_ENV}.conf
-RUN   sed -i "s|{{SERVER_PORT}}|${SERVER_PORT}|g" /etc/nginx/sites-available/api_${DOCKER_ENV}.conf
+RUN sed -i "s|{{SERVER_DOMAIN}}|${SERVER_DOMAIN}|g" /etc/nginx/sites-available/api_${DOCKER_ENV}.conf
+RUN sed -i "s|{{SERVER_PORT}}|${SERVER_PORT}|g" /etc/nginx/sites-available/api_${DOCKER_ENV}.conf
 RUN usermod -u 1000 www-data
 
 
